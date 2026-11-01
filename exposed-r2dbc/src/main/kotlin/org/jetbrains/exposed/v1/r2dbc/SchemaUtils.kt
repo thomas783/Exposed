@@ -416,6 +416,11 @@ object SchemaUtils : SchemaUtilityApi() {
         }
     }
 
+    @Deprecated("Use the overload with a suspend lambda block", level = DeprecationLevel.HIDDEN)
+    suspend fun <T> R2dbcTransaction.withDataBaseLock(body: () -> T) {
+        withDataBaseLock(suspend { body() })
+    }
+
     /**
      * Retrieves a list of all table names in the current database schema.
      * The names will be returned with schema prefixes if the database supports it.
